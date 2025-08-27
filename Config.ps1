@@ -9,8 +9,8 @@
 
 # === TENANT CONFIGURATION ===
 $Global:SourceTenantId = ""           # Source tenant ID (optional for source operations)
-$Global:TargetTenantId = ""           # Target tenant ID - REQUIRED
-$Global:EnvironmentDisplayName = ""   # Display name of environment to migrate - REQUIRED
+$Global:TargetTenantId = "be15784a-bd4f-403e-bbcc-1c5bff5e5999"           # Target tenant ID - REQUIRED
+$Global:EnvironmentDisplayName = "myCD-CRMTestMigration"   # Display name of environment to migrate - REQUIRED
 
 # === MIGRATION SETTINGS ===
 $Global:MigrationId = ""              # Migration ID (set after submission in script 03)
