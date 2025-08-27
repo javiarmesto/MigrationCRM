@@ -1,5 +1,7 @@
 # Power Platform Tenant-to-Tenant Migration Toolkit
 
+> **🌐 Language:** **English** | [Español](README.es.md)
+
 Professional toolkit for migrating Power Platform / Dynamics 365 environments between Microsoft tenants using official PowerShell cmdlets.
 
 ## 🚀 Quick Start
@@ -291,10 +293,28 @@ Select-String -Path .\migration-output\migration-runbook.log -Pattern "ERROR"
 
 ## 🆘 Support
 
+## 📚 Complete Documentation
+
+### 📖 Core Documentation
+- **[README](README.md)** - Main project documentation *(you are here)*
+- **[README.es](README.es.md)** - Documentación en español
+
+### 🔧 Technical Reference  
+- **[API Reference](docs/en/api-reference.md)** - Complete PowerShell cmdlets reference
+- **[Troubleshooting](docs/en/troubleshooting.md)** - Common issues and solutions
+- **[Best Practices](docs/en/best-practices.md)** - Enterprise migration guidelines
+
+### 🌐 En Español
+- **[Referencia API](docs/es/referencia-api.md)** - Referencia completa de cmdlets
+- **[Solución de Problemas](docs/es/solucion-problemas.md)** - Problemas comunes y soluciones  
+- **[Mejores Prácticas](docs/es/mejores-practicas.md)** - Guías de migración empresarial
+
 ### Getting Help
 - **Microsoft Documentation**: [Official tenant-to-tenant migration guide](https://learn.microsoft.com/en-us/power-platform/admin/move-environment-tenant)
 - **PowerShell Help**: Use `Get-Help <cmdlet-name>` for detailed syntax
 - **Log Analysis**: Check `migration-runbook.log` for detailed execution logs
+- **Technical Deep Dive**: See [API Reference](docs/en/api-reference.md) for complete cmdlet documentation
+- **Issue Resolution**: Check [Troubleshooting Guide](docs/en/troubleshooting.md) for solutions
 
 ### Error Recovery
 - Use checkpoint resume functionality
@@ -323,3 +343,7 @@ Select-String -Path .\migration-output\migration-runbook.log -Pattern "ERROR"
 ## 📄 License
 
 This toolkit is provided as-is for educational and professional use. Ensure compliance with Microsoft licensing terms and your organization's policies.
+
+---
+
+**🌐 Available in:** **English** | [Español](README.es.md)
