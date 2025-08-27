@@ -1,0 +1,28 @@
+# Migration output files
+migration-output/
+*.log
+*.json
+
+# User-specific files
+usermapping.csv
+Config-local.ps1
+
+# PowerShell artifacts
+*.ps1xml
+*.psd1
+
+# Temporary files
+*.tmp
+*.temp
+
+# Credentials and secrets
+*.key
+*.secret
+credentials/
+
+# Visual Studio Code settings
+.vscode/settings.json
+
+# Windows
+Thumbs.db
+desktop.ini

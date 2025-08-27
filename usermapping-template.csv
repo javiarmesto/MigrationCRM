@@ -1,0 +1,5 @@
+SourceUpn,TargetUpn
+user1@sourcetenant.com,user1@targettenant.com
+user2@sourcetenant.com,user2@targettenant.com
+admin@sourcetenant.com,admin@targettenant.com
+service@sourcetenant.com,service@targettenant.com
