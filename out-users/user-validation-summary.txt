@@ -1,0 +1,14 @@
+Power Platform Migration - User Validation Summary
+Generated: 2025-08-28 13:41:20
+Source File: .\usermapping.csv
+Target UPN Column: TargetUpn
+
+Results:
+- Total users processed: 
+- Users found in target: 
+- Users missing in target: 
+- Graph connection: Failed/Unavailable
+
+Next Steps:
+1. Verify license assignments for all users
+2. Proceed to migration submission phase

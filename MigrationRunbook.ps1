@@ -23,25 +23,26 @@ param(
     [switch]$SkipValidation,
     
     [switch]$DryRun
+    ,
+    [string]$UserMappingCsvPath
 )
 
 # Load configuration
 . .\Config.ps1
 
+# Inicializar rutas de log y checkpoint antes de cualquier uso
 $Global:RunbookLogFile = Join-Path $Global:OutputDirectory "migration-runbook.log"
 $Global:CheckpointFile = Join-Path $Global:OutputDirectory "migration-checkpoint.json"
 
+# Definición de la función antes de cualquier uso
 function Write-RunbookLog {
     param(
         [Parameter(Mandatory=$true)][string]$Message,
         [ValidateSet("INFO", "WARN", "ERROR", "SUCCESS", "DEBUG")]
         [string]$Level = "INFO"
     )
-    
     $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss.fff"
     $logEntry = "[$timestamp] [$Level] $Message"
-    
-    # Console output with colors
     $colors = @{
         "INFO" = "White"
         "WARN" = "Yellow"
@@ -49,11 +50,14 @@ function Write-RunbookLog {
         "SUCCESS" = "Green"
         "DEBUG" = "Gray"
     }
-    
     Write-Host $logEntry -ForegroundColor $colors[$Level]
-    
-    # File logging
     Add-Content -Path $Global:RunbookLogFile -Value $logEntry -Encoding UTF8
+}
+
+# Override user mapping CSV path if parameter is provided (after config load and function definition)
+if ($UserMappingCsvPath) {
+    $Global:UserMappingCsvPath = $UserMappingCsvPath
+    Write-RunbookLog "Using custom user mapping CSV: $Global:UserMappingCsvPath" "INFO"
 }
 
 function Save-Checkpoint {
@@ -181,9 +185,16 @@ function Request-UserConfirmation {
 # Main execution
 Write-RunbookLog "Power Platform Migration Runbook Starting" "SUCCESS"
 Write-RunbookLog "Phase: $Phase | Mode: $Mode | DryRun: $DryRun" "INFO"
+Write-RunbookLog "DEBUG: UserMappingCsvPath parameter received: '$UserMappingCsvPath'" "DEBUG"
 
 # Initialize directories
 Initialize-MigrationDirectories
+
+# Override user mapping CSV path if parameter is provided (after config load)
+if ($UserMappingCsvPath) {
+    $Global:UserMappingCsvPath = $UserMappingCsvPath
+    Write-RunbookLog "Using custom user mapping CSV: $Global:UserMappingCsvPath" "INFO"
+}
 
 # Handle resume
 $resumeFrom = $null
@@ -266,6 +277,8 @@ $phases = [ordered]@{
     }
 }
 
+Write-RunbookLog "DEBUG: UserMappingCsvPath usado en fase: $($phases['UsersCheck'].Parameters.UserMappingCsvPath)" "DEBUG"
+
 # Prerequisites validation
 if (!$SkipValidation -and !(Test-Prerequisites)) {
     Write-RunbookLog "Prerequisites validation failed. Run with -Phase Prerequisites first." "ERROR"
@@ -297,6 +310,12 @@ foreach ($phaseName in $phasesToRun) {
     
     # Special handling for phases that need dynamic parameters
     $parameters = if ($phaseInfo.Parameters) { $phaseInfo.Parameters } else { @{} }
+    
+    # Override UserMappingCsvPath if custom parameter was provided
+    if ($UserMappingCsvPath -and $parameters.ContainsKey('UserMappingCsvPath')) {
+        $parameters.UserMappingCsvPath = $UserMappingCsvPath
+        Write-RunbookLog "Overriding UserMappingCsvPath for this phase: $UserMappingCsvPath" "INFO"
+    }
     
     # Execute phase
     $result = Invoke-MigrationPhase -PhaseName $phaseName -ScriptPath $phaseInfo.Script -Parameters $parameters -Description $phaseInfo.Description

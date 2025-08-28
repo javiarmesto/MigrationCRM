@@ -17,7 +17,10 @@ $Global:MigrationId = ""              # Migration ID (set after submission in sc
 $Global:SecurityGroupId = ""          # Optional security group ID for migration
 
 # === FILE PATHS ===
-$Global:UserMappingCsvPath = ".\usermapping.csv"  # Path to user mapping CSV file
+# Only set UserMappingCsvPath if not already defined (allows parameter override)
+if (-not $Global:UserMappingCsvPath) {
+    $Global:UserMappingCsvPath = ".\usermapping.csv"  # Path to user mapping CSV file
+}
 $Global:OutputDirectory = ".\migration-output"    # Base directory for all outputs
 
 # === OUTPUT SUBDIRECTORIES ===

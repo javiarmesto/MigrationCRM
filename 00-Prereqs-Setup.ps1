@@ -16,8 +16,8 @@ try {
     Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned -Force
     Write-MigrationLog "Execution policy set successfully" "Success"
 } catch {
-    Write-MigrationLog "Failed to set execution policy: $($_.Exception.Message)" "Error"
-    throw
+    Write-MigrationLog "Failed to set execution policy: $($_.Exception.Message)" "Warning"
+    Write-MigrationLog "Continuing setup despite execution policy error (policy may be restricted by admin)" "Warning"
 }
 
 Write-MigrationLog "Configuring TLS 1.2 for PSGallery downloads" "Info"
